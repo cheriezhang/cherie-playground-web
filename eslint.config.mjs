@@ -1,5 +1,5 @@
 import { FlatCompat } from "@eslint/eslintrc"; // to compat with old eslintrc
-import eslintPluginImport from 'eslint-plugin-import';
+import eslintPluginImport from "eslint-plugin-import";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -19,6 +19,7 @@ const eslintConfig = [
       import: eslintPluginImport,
     },
     rules: {
+      "@typescript-eslint/no-explicit-any": "off",
       "import/order": [
         "warn",
         {
