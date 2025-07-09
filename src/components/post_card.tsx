@@ -1,10 +1,10 @@
-import Link from "next/link";
+import { CardMedia } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { CardMedia } from "@mui/material";
+import Link from "next/link";
 
 type TPost = {
-  img: string;
+  img?: string;
   title: string;
   brief: string;
   tag: string;

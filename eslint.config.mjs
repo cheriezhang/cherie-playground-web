@@ -1,4 +1,5 @@
 import { FlatCompat } from "@eslint/eslintrc"; // to compat with old eslintrc
+import eslintPluginImport from 'eslint-plugin-import';
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
