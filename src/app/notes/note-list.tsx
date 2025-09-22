@@ -2,7 +2,7 @@
 import { motion } from "motion/react";
 
 import { NoteCard } from "@/components";
-import type { TNote } from "@/lib";
+import type { TNote } from "@/lib/types";
 
 export default function NoteList({ notes }: { notes: TNote[] }) {
   const container = {
