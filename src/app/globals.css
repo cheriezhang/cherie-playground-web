@@ -1,26 +1,87 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
   }
 }
 
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+@theme {
+  --color-primary: #6d8ea0;
+  --color-primary-light: #a8bcc6;
+  --color-primary-dark: #4c697a;
+  --color-secondary: #c3bfc3;
+  --color-accent: #a3bfa8;
+
+  --color-background: #f8f9fa;
+  --color-surface: #ffffff;
+  --color-border: #d9dadb;
+
+  --color-text-primary: #2f2f2f;
+  --color-text-secondary: #5a5a5a;
+  --color-text-disabled: #a5a5a5;
+
+  --color-chart-1: #b3c7d6;
+  --color-chart-2: #c2d3c3;
+  --color-chart-3: #d7cbdc;
+  --color-chart-4: #e3d4c5;
+  --color-chart-5: #b5b9bd;
+  --color-chart-6: #d3c8c8;
+
+  /* font */
+  --text-h1: 32px;
+  --text-h2: 28px;
+  --text-h3: 24px;
+  --text-h4: 22px;
+  --text-h5: 16px;
+  --text-h6: 14px;
+  --text-body: 16px;
+  --text-button: 14px;
+  --text-label: 12px;
+}
+
+/** dark mode 
+  * By default this uses the **prefers-color-scheme** CSS media feature,
+  * @media (prefers-color-scheme: dark) {} 
+  * but you can also build sites that support toggling dark mode manually 
+  * by overriding the dark variant.
+  */
+[data-theme="dark"] {
+  --color-primary: #a8c2d0;
+  --color-primary-light: #c9d7e0;
+  --color-primary-dark: #4a5e66;
+  --color-secondary: #9a97a0;
+  --color-accent: #88a398;
+
+  --color-background: #1e1f20;
+  --color-surface: #2a2b2c;
+  --color-border: #3a3b3c;
+
+  --color-text-primary: #f1f1f1;
+  --color-text-secondary: #c0c0c0;
+  --color-text-disabled: #888888;
+
+  --color-chart-1: #5b7182;
+  --color-chart-2: #5c725c;
+  --color-chart-3: #7a6c7d;
+  --color-chart-4: #867663;
+  --color-chart-5: #6c6f72;
+  --color-chart-6: #726565;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family:
-    var(--font-parastoo),
+    Roboto,
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
-    Roboto,
     "Helvetica Neue",
     Arial,
     "Noto Sans",

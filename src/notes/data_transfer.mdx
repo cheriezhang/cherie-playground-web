@@ -1,0 +1,91 @@
+---
+title: "Data Structure Transfer"
+tags: ["JavaScript"]
+date: "2025-09-03 16:28:45"
+---
+
+### Map ↔️ Object
+- Map -> Object: `Object.fromEntries(map.entries())` or `Object.fromEntries(map)`
+- Object -> Map: `new Map(Object.entries(obj))`
+
+#### 解析
+entry === [key1, value1] 这种格式  
+Object.entries(obj) -> [[key1, value1], [key2, value2],...]  
+Object.fromEntries(iterable) -> entries的反向操作  
+map.entries() -> 返回**迭代器**对象, 格式[key1, value1]。这也是map的默认迭代器，所以上面Object.fromEntries可以简写。
+
+### Object ↔️ Array
+- Object → Array: `Object.entries()` 转换为 [key, value] 数组。
+- Array → Object: 
+1. `Object.fromEntries()` 将 [key, value] 数组转换为对象。
+2. reduce() 通过索引将数组转换为对象。
+```
+const arr = [1, 2, 3];
+const obj = arr.reduce((acc, val, index) => {
+  acc[index] = val;
+  return acc;
+}, {});
+// { 0: 1, 1: 2, 2: 3 }
+```
+3. Object.assign() 通过对象合并将数组转换为对象（将数组的索引作为对象的键）。
+```
+const arr = [1, 2, 3];
+const obj = Object.assign({}, arr);
+```
+
+### Array ↔️ Map 
+- Array → Map: `new Map([[key1, value1],...])`
+- Map → Array: `Array.from(map)` or `Array.from(map.entries())`
+
+#### 解析
+Array转Map的核心是转换为entries形式的二维数组  
+Map转Array的核心是将map转换为entries形式
+
+### 拓展
+创建Map
+- new Map([[key1, value1],[key2, value2],...])  // Array和Set都可以
+- map.set(key, value)  
+- new Map(Object.entries(obj))  
+
+创建Object
+- Object.create
+在需要指定proto的时候使用
+```JavaScript
+const proto = { greet() { console.log("Hello"); } };
+const obj = Object.create(proto);
+```
+- Object.assign
+在需要合并对象的时候使用
+```JavaScript
+const defaults = { age: 20 };
+const obj = Object.assign({}, defaults, { name: "Alice" });
+```
+- Use Constructor Function or ES6 Class
+```JavaScript
+function Person(name, age) {
+  this.name = name;
+  this.age = age;
+}
+Person.prototype.greet = function() {
+  console.log("Hello", this.name);
+}
+// ES6
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  greet() {
+    console.log("Hello", this.name);
+  }
+}
+const alice = new Person("Alice", 25);
+```
+- Object.fromEntries(Map/Array)
+
+创建Array
+- new Array(len) or new Array(ele1,ele2,...)
+  - new Array(len)可配合fill使用
+- Array.from(Set/Object/String)
+- `Array.from({ length: 5 }, (_, i) => i + 1)`
+- push or concat

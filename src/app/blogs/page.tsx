@@ -1,32 +1,27 @@
-import { PostCard } from "@/components/post_card";
+import { getPublishedBlogs } from "@/lib/database/get_data";
+import type { TArticle } from "@/lib/types";
+
+import BlogHome from "./blog-home";
+
 // a waterfall with images
-const BlogsHome = () => {
-  const mockPosts = [
-    {
-      img: "1",
-      title: "Blog1",
-      brief: "test for blog 1",
-      tag: "react",
+const BlogsHome = async () => {
+  const blogPosts = await getPublishedBlogs();
+
+  // Convert BlogPost to TArticle format to render
+  const articles: TArticle[] = blogPosts.map((blog) => ({
+    id: blog.id,
+    metadata: {
+      slug: blog.slug,
+      title: blog.title,
+      summary: blog.summary || "",
+      created_at: blog.created_at,
+      updated_at: blog.updated_at,
+      tags: blog.tags,
+      cover_image: blog.cover_image || undefined,
     },
-    {
-      img: "2",
-      title: "Blog2",
-      brief: "test for blog 2",
-      tag: "react",
-    },
-    {
-      title: "Blog3",
-      brief: "test for blog 3",
-      tag: "react",
-    },
-  ];
-  return (
-    <div className="m-12 columns-1 gap-4 space-y-4 md:columns-2 lg:columns-4">
-      {mockPosts.map((post) => {
-        return <PostCard key={post.title} post={post} />;
-      })}
-    </div>
-  );
+  }));
+
+  return <BlogHome articles={articles} />;
 };
 
 export default BlogsHome;

@@ -1,0 +1,13 @@
+---
+title: "Bind, Apply & Call"
+tags: ["JavaScript"]
+date: "2025-09-15 17:33:56"
+---
+
+| 方法	| 是否立即执行函数 | 参数形式 | 用途 |
+| -  | - | - | - |
+| call	| 是|	参数依次传入...args<br />`func.call(thisArg, arg1, arg2, ...)` |	立即调用函数|
+| apply |	是|	参数用**数组**传入args<br />`func.apply(thisArg, [argsArray])`  | 立即调用函数（多参数场景）|
+| bind	| 否|	参数依次传入，这些参数会被预先传入函数，新的函数调用时仍可再传入其他参数。<br />`const newFn = func.bind(thisArg, arg1, arg2, ...);`<br />`newFn(arg1, arg2, ...)`|返回新函数，可稍后调用|
+
+

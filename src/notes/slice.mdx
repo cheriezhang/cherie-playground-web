@@ -1,0 +1,12 @@
+---
+title: "slice VS splice"
+tags: ["JavaScript"]
+date: "2025-09-01 14:09:37"
+---
+
+| 特性 | slice(start, end?)  |  splice(start, deleteCount, ...items) |
+| - | - | - |
+| 是否修改原数组	| ❌ 不修改（返回新数组）|	✅ 修改原数组 |
+| 返回值	| 新数组（被切出来的片段）	| 被删除的元素数组 |
+| 用途	| 提取子数组	| 添加 / 删除 / 替换元素 |
+| 参数意义	| start 开始索引，end 结束索引（不包含）|	start 起始位置，deleteCount 要删几个，items 要添加的 |
