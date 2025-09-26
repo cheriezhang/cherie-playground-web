@@ -1,7 +1,7 @@
-import { MDXRemote } from "next-mdx-remote-client/rsc"; // support load mdx from local or db
+import { MDXClient as Client } from "next-mdx-remote-client"; // support load mdx from local or db
+import type { SerializeResult } from "next-mdx-remote-client/serialize";
 import Image from "next/image";
 import { Suspense } from "react";
-import remarkGfm from "remark-gfm";
 
 import { allComponents } from "@/lib/mdx/registry";
 import { useMDXComponents } from "@/mdx-components";
@@ -10,11 +10,11 @@ import CodeBlock from "../code";
 import { ErrorComponent } from "../error";
 import { Loading } from "../loading";
 
-export const MDX = ({
+export const MDXClient = ({
   content,
   metadata,
 }: {
-  content: string;
+  content: SerializeResult;
   metadata: any;
 }) => {
   const baseComponents = useMDXComponents();
@@ -24,21 +24,17 @@ export const MDX = ({
       allComponents[name],
     ]),
   );
+  const compiledSource = (content as any).compiledSource;
 
   return (
     <Suspense fallback={<Loading />}>
-      <MDXRemote
-        source={content}
+      <Client
+        compiledSource={compiledSource}
         components={{
           ...baseComponents,
           ...extra,
           CodeBlock,
           Image,
-        }}
-        options={{
-          mdxOptions: {
-            remarkPlugins: [remarkGfm],
-          },
         }}
         onError={ErrorComponent}
       />

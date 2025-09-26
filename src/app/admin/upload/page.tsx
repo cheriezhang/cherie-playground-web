@@ -6,30 +6,43 @@ import { useCallback, useState } from "react";
 import { Button } from "@/components/button";
 import { FileUpload } from "@/components/upload/file-upload";
 import { MDXEditorPreview } from "@/components/upload/mdx-preview";
+import { usePreviewFileStore } from "@/lib/stores/preview-store";
 
 export default function UploadPage() {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [fileContent, setFileContent] = useState<string>("");
+  const {
+    file: selectedFile,
+    content: fileContent,
+    setFile,
+    setContent,
+    reset: resetStore,
+  } = usePreviewFileStore();
+
   const [isUploading, setIsUploading] = useState(false);
   const [uploadResult, setUploadResult] = useState<any>(null);
   const [error, setError] = useState<string>("");
 
-  const handleFileSelect = useCallback(async (file: File) => {
-    setSelectedFile(file);
-    setError("");
-    setUploadResult(null);
+  const handleFileSelect = useCallback(
+    async (file: File) => {
+      setFile(file);
+      setError("");
+      setUploadResult(null);
 
-    try {
-      const content = await file.text();
-      setFileContent(content);
-    } catch {
-      setError("Failed to read file content");
-    }
-  }, []);
+      try {
+        const text = await file.text();
+        setContent(text);
+      } catch {
+        setError("Failed to read file content");
+      }
+    },
+    [setFile, setContent],
+  );
 
-  const handleContentChange = useCallback((content: string) => {
-    setFileContent(content);
-  }, []);
+  const handleContentChange = useCallback(
+    (content: string) => {
+      setContent(content);
+    },
+    [setContent],
+  );
 
   const handleUpload = async () => {
     if (!selectedFile || !fileContent) {
@@ -70,8 +83,7 @@ export default function UploadPage() {
   };
 
   const handleReset = () => {
-    setSelectedFile(null);
-    setFileContent("");
+    resetStore();
     setUploadResult(null);
     setError("");
   };

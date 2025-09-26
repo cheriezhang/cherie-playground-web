@@ -8,7 +8,6 @@ import {
   TOC,
 } from "@/components";
 import { getBlogBySlug } from "@/lib/database/get_data";
-import type { TArticle } from "@/lib/types";
 
 async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -18,11 +17,11 @@ async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
     return <div>Blog post not found</div>;
   }
 
-  // Convert BlogPost to TArticle format for MDX component
-  const article: TArticle = {
+  // Convert BlogPost to TBlogPost format for MDX component
+  const article = {
     id: blogPost.id,
     metadata: {
-      slug: blogPost.id,
+      slug: blogPost.slug,
       title: blogPost.title,
       summary: blogPost.summary || "",
       created_at: blogPost.created_at,
@@ -34,7 +33,7 @@ async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
     content: blogPost.content,
   };
 
-  const headings = extractHeadings(blogPost.content);
+  const headings = extractHeadings(blogPost.content || "");
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_200px]">
@@ -42,7 +41,7 @@ async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
         <Breadcrumbs />
         <article className="prose max-w-none">
           <div className="mt-8">
-            <MDX content={article.content || ""} meta={article.metadata} />
+            <MDX content={article.content || ""} metadata={article.metadata} />
           </div>
         </article>
       </div>

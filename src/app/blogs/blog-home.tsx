@@ -3,10 +3,10 @@ import { motion } from "motion/react";
 import { Suspense, useEffect, useRef, useState } from "react";
 
 import { BlogCard, Heading, Loading } from "@/components";
-import type { TArticle } from "@/lib/types";
+import type { TBlogPost } from "@/lib/types";
 
-export default function BlogHome({ articles }: { articles: TArticle[] }) {
-  const [cols, setCols] = useState<TArticle[][]>([]);
+export default function BlogHome({ articles }: { articles: TBlogPost[] }) {
+  const [cols, setCols] = useState<TBlogPost[][]>([]);
   const [columns, setColumns] = useState(3); // 页面中的列数
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -35,7 +35,7 @@ export default function BlogHome({ articles }: { articles: TArticle[] }) {
 
   // 根据列数分配 Card
   useEffect(() => {
-    const tempCols: TArticle[][] = Array.from({ length: columns }, () => []);
+    const tempCols: TBlogPost[][] = Array.from({ length: columns }, () => []);
     const colHeights = Array(columns).fill(0);
 
     articles.forEach((p) => {

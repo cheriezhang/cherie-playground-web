@@ -1,7 +1,7 @@
 import { JSX } from "react";
 
 // for page render
-export type TArticleMetadata = {
+export type TBlogMetadata = {
   slug: string;
   title: string;
   summary: string;
@@ -13,25 +13,10 @@ export type TArticleMetadata = {
   updated_at: string;
 };
 
-export type TArticle = {
-  id?: string;
-  metadata: TArticleMetadata;
-  content?: string;
-};
-
 // for database
-export type TBlogPost = {
-  id: string;
-  slug: string;
-  title: string;
-  summary?: string;
-  content: string;
-  tags?: string[];
-  components?: string[];
-  cover_image?: string;
-  draft: boolean;
-  created_at: string;
-  updated_at: string;
+export type TBlogPost = TBlogMetadata & {
+  id?: string;
+  content?: string;
 };
 
 export type TNoteMetadata = {

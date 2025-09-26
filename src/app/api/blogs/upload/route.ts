@@ -3,6 +3,7 @@ import { jwtVerify } from "jose";
 import { NextRequest, NextResponse } from "next/server";
 
 import { createClient } from "@/lib/database/server-client";
+import { TBlogPost } from "@/lib/types";
 
 // Authentication helper function
 async function authenticateRequest(req: NextRequest): Promise<boolean> {
@@ -73,13 +74,13 @@ export async function POST(req: NextRequest) {
       .eq("slug", metadata.slug)
       .single();
 
-    const articleData = {
+    const articleData: TBlogPost = {
       slug: metadata.slug,
       title: metadata.title,
       tags: metadata.tags || [],
       cover_image: metadata.cover_image
         ? `/static/blog/${metadata.cover_image}`
-        : null,
+        : "",
       content: mdxContent,
       created_at: metadata.created_at ?? new Date().toISOString(),
       updated_at: new Date().toISOString(),

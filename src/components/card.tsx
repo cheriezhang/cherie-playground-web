@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 import { Heading, Tag, Text } from "@/components";
-import type { TArticle, TNote } from "@/lib/types";
+import type { TBlogPost, TNote } from "@/lib/types";
 
 const item: Variants = {
   hidden: { opacity: 0, y: -30 },
@@ -21,7 +21,7 @@ const item: Variants = {
   },
 };
 
-export const BlogCard = ({ article }: { article: TArticle }) => {
+export const BlogCard = ({ article }: { article: TBlogPost }) => {
   return (
     <motion.div
       variants={item}
@@ -29,27 +29,24 @@ export const BlogCard = ({ article }: { article: TArticle }) => {
       whileTap={{ scale: 0.98 }}
       className="overflow-hidden rounded-2xl bg-surface"
     >
-      <Link
-        key={article.metadata.title}
-        href={`/blogs/${article.metadata.slug}`}
-      >
+      <Link key={article.title} href={`/blogs/${article.slug}`}>
         <div className="relative aspect-[16/9] w-full">
-          {article.metadata.cover_image && (
+          {article.cover_image && (
             <Image
-              src={article.metadata.cover_image}
-              alt={article.metadata.cover_image}
+              src={article.cover_image}
+              alt={article.cover_image}
               fill
               className="object-cover"
             />
           )}
         </div>
         <div className="flex flex-col justify-end gap-2 p-6">
-          <Heading component="h4">{article.metadata.title}</Heading>
+          <Heading component="h4">{article.title}</Heading>
           <Text component="p" className="my-4">
-            {article.metadata.summary}
+            {article.summary}
           </Text>
           <div className="flex gap-1">
-            {article.metadata.tags?.map((tag) => (
+            {article.tags?.map((tag) => (
               <Tag key={tag}>{tag}</Tag>
             ))}
           </div>

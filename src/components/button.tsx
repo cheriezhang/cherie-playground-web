@@ -14,7 +14,7 @@ export const Button = ({
   disabled,
   ...props
 }: IButton) => {
-  const baseStyle = "rounded-lg px-4 py-2";
+  const baseStyle = "rounded-lg px-2 py-1 md:px-4 py-2";
   const typeStyle =
     kind === "primary" ? "bg-primary text-surface" : "bg-surface text-accent";
   const disableStyle = disabled ? "opacity-50 cursor-not-allowed" : "";

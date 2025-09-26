@@ -20,7 +20,7 @@ export async function getLocalNotes(): Promise<TNote[]> {
       return {
         id: name.replace(/\.mdx$/, ""),
         metadata: data as TNoteMetadata,
-        renderedContent: <MDX content={content} meta={data} />,
+        renderedContent: <MDX content={content} metadata={data} />,
       };
     })
     .sort(
